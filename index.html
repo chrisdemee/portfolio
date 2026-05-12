@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Christopher Demetri Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-layer"></div>
+  <header class="topbar">
+    <div class="profile-block">
+      <div class="profile-icon">CD</div>
+      <div>
+        <div class="profile-name">Christopher Demetri</div>
+        <div class="profile-sub">Senior Portfolio</div>
+      </div>
+    </div>
+    <div class="status-block">
+      <div class="status-chip">12 <span>⭐</span></div>
+      <div class="status-chip">5/20</div>
+      <div class="status-chip">10:30 PM</div>
+    </div>
+  </header>
+
+  <main class="home-screen">
+    <section class="xmb-panel">
+      <div class="xmb-row" role="list">
+        <button class="xmb-item selected" data-year="sophomore" aria-selected="true" role="listitem">
+          <span class="xmb-icon">S</span>
+          <span class="xmb-label">Sophomore</span>
+        </button>
+        <button class="xmb-item" data-year="junior" role="listitem">
+          <span class="xmb-icon">J</span>
+          <span class="xmb-label">Junior</span>
+        </button>
+        <button class="xmb-item" data-year="senior" role="listitem">
+          <span class="xmb-icon">S</span>
+          <span class="xmb-label">Senior</span>
+        </button>
+      </div>
+
+      <div class="xmb-detail">
+        <div class="xmb-hero">Sophomore Year Projects</div>
+        <div class="xmb-copy">Explore creative work from sophomore year in design, motion, and brand systems.</div>
+      </div>
+    </section>
+
+    <section class="project-grid">
+      <article class="project-card active" data-year="sophomore">
+        <h2>SOPHOMORE YEAR</h2>
+        <ul>
+          <li>PS3-inspired UI redesign</li>
+          <li>Motion branding system</li>
+          <li>Interactive portfolio prototype</li>
+        </ul>
+      </article>
+
+      <article class="project-card" data-year="junior">
+        <h2>JUNIOR YEAR</h2>
+        <ul>
+          <li>Web experience concept</li>
+          <li>Photography and editorial layout</li>
+          <li>UX case study with animations</li>
+        </ul>
+      </article>
+
+      <article class="project-card" data-year="senior">
+        <h2>SENIOR YEAR</h2>
+        <ul>
+          <li>Advanced UI system</li>
+          <li>3D visual identity</li>
+          <li>Responsive product showcase</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer-bar">Use left / right arrow keys or click icons. Press Enter to open the selected year.</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
