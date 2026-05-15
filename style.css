@@ -15,10 +15,20 @@ html, body {
 }
 
 body {
-  background: radial-gradient(circle at top left, rgba(120, 146, 255, 0.18), transparent 28%),
-              radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.08), transparent 20%),
-              linear-gradient(180deg, #020203 0%, #090a0f 45%, #050508 100%);
+  background: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/863388bc-5f24-49cb-8ce6-59f63fd2017a/dsvduv-ff21524e-36ce-48b9-b0cc-18cbed5b9bc9.jpg") center/cover fixed no-repeat;
+  color: #e8ecef;
   overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.46);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .background-layer {
@@ -26,7 +36,7 @@ body {
   inset: 0;
   background-image: radial-gradient(circle at center, rgba(255,255,255,0.06), transparent 40%),
                     linear-gradient(90deg, rgba(255,255,255,0.02) 0%, transparent 14%, transparent 86%, rgba(255,255,255,0.02) 100%);
-  opacity: 0.6;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -107,14 +117,9 @@ body::before {
 
 .xmb-panel {
   position: relative;
-  padding: 34px 28px 30px;
+  padding: 24px 0 12px;
   margin: 0 auto 28px;
   max-width: 1200px;
-  background: rgba(17,19,28,0.55);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 24px;
-  backdrop-filter: blur(18px);
-  box-shadow: 0 28px 80px rgba(0,0,0,0.34);
 }
 
 .xmb-row {
@@ -194,27 +199,29 @@ body::before {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  grid-template-columns: 1fr;
   gap: 20px;
-  max-width: 1200px;
+  max-width: 760px;
   margin: 0 auto 42px;
   padding: 0 4px;
 }
 
 .project-card {
-  background: rgba(8,10,16,0.68);
+  display: none;
+  background: rgba(8,10,16,0.78);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 22px;
   padding: 28px 24px;
-  min-height: 240px;
-  opacity: 0.45;
-  transform: scale(0.98);
-  transition: transform 0.24s ease, opacity 0.24s ease, border-color 0.24s ease;
+  width: 100%;
+  transition: opacity 0.24s ease, transform 0.24s ease, border-color 0.24s ease;
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 .project-card.active {
+  display: block;
   opacity: 1;
-  transform: scale(1);
+  transform: translateY(0);
   border-color: rgba(114,163,255,0.38);
 }
 

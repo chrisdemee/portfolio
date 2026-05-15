@@ -1,23 +1,15 @@
 const items = Array.from(document.querySelectorAll('.xmb-item'));
 const cards = Array.from(document.querySelectorAll('.project-card'));
-const hero = document.querySelector('.xmb-hero');
-const copy = document.querySelector('.xmb-copy');
-let selectedIndex = 0;
+let selectedIndex = -1;
 
-const yearText = {
-  sophomore: {
-    title: 'Sophomore Year Projects',
-    description: 'Explore creative work from sophomore year in design, motion, and brand systems.'
-  },
-  junior: {
-    title: 'Junior Year Projects',
-    description: 'Discover junior year projects focused on web experience, editorial, and UX storytelling.'
-  },
-  senior: {
-    title: 'Senior Year Projects',
-    description: 'View senior year concept work with advanced UI, 3D visuals, and responsive product showcases.'
-  }
-};
+function clearSelection() {
+  selectedIndex = -1;
+  items.forEach(item => {
+    item.classList.remove('selected');
+    item.setAttribute('aria-selected', 'false');
+  });
+  cards.forEach(card => card.classList.remove('active'));
+}
 
 function updateSelection(index) {
   if (index < 0) index = items.length - 1;
@@ -32,9 +24,6 @@ function updateSelection(index) {
 
   const selectedYear = items[selectedIndex].dataset.year;
   cards.forEach(card => card.classList.toggle('active', card.dataset.year === selectedYear));
-
-  hero.textContent = yearText[selectedYear].title;
-  copy.textContent = yearText[selectedYear].description;
 }
 
 items.forEach((item, index) => {
@@ -44,13 +33,21 @@ items.forEach((item, index) => {
 window.addEventListener('keydown', event => {
   if (event.key === 'ArrowRight') {
     event.preventDefault();
-    updateSelection(selectedIndex + 1);
+    if (selectedIndex === -1) {
+      updateSelection(0);
+    } else {
+      updateSelection(selectedIndex + 1);
+    }
   }
   if (event.key === 'ArrowLeft') {
     event.preventDefault();
-    updateSelection(selectedIndex - 1);
+    if (selectedIndex === -1) {
+      updateSelection(items.length - 1);
+    } else {
+      updateSelection(selectedIndex - 1);
+    }
   }
-  if (event.key === 'Enter') {
+  if (event.key === 'Enter' && selectedIndex !== -1) {
     const selectedYear = items[selectedIndex].dataset.year;
     const card = cards.find(card => card.dataset.year === selectedYear);
     if (card) {
@@ -59,4 +56,4 @@ window.addEventListener('keydown', event => {
   }
 });
 
-updateSelection(selectedIndex);
+clearSelection();

@@ -25,29 +25,29 @@
 
   <main class="home-screen">
     <section class="xmb-panel">
+      <div class="xmb-detail">
+        <div class="xmb-hero">Senior Year Projects</div>
+        <div class="xmb-copy">Click a year below to view only the project details for that year.</div>
+      </div>
+
       <div class="xmb-row" role="list">
-        <button class="xmb-item selected" data-year="sophomore" aria-selected="true" role="listitem">
+        <button class="xmb-item" data-year="sophomore" aria-selected="false" role="listitem">
           <span class="xmb-icon">S</span>
           <span class="xmb-label">Sophomore</span>
         </button>
-        <button class="xmb-item" data-year="junior" role="listitem">
+        <button class="xmb-item" data-year="junior" aria-selected="false" role="listitem">
           <span class="xmb-icon">J</span>
           <span class="xmb-label">Junior</span>
         </button>
-        <button class="xmb-item" data-year="senior" role="listitem">
+        <button class="xmb-item" data-year="senior" aria-selected="false" role="listitem">
           <span class="xmb-icon">S</span>
           <span class="xmb-label">Senior</span>
         </button>
       </div>
-
-      <div class="xmb-detail">
-        <div class="xmb-hero">Sophomore Year Projects</div>
-        <div class="xmb-copy">Explore creative work from sophomore year in design, motion, and brand systems.</div>
-      </div>
     </section>
 
     <section class="project-grid">
-      <article class="project-card active" data-year="sophomore">
+      <article class="project-card" data-year="sophomore">
         <h2>SOPHOMORE YEAR</h2>
         <ul>
           <li>PS3-inspired UI redesign</li>
