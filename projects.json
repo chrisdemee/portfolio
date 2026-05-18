@@ -22,5 +22,12 @@
         "img": "website-imgs/njit-movie-gallery.png",
         "description": "This website is a movie gallery that showcases popular movies with posters, visuals, and organized layouts for browsing different films.",
         "link": "https://chrisdemee.github.io/NJITMovieGallery/"
+    },
+        {
+        "name": "Rutgers recruitment site",
+        "img": "blob:chrome-untrusted://media-app/83bbce4e-511d-400b-9b5a-549483854761",
+        "description": "This website is a college recruitment site for Rutgers University.",
+        "link": "https://chrisdemee.github.io/collegerecruit/"
     }
 ]
+
