@@ -373,6 +373,45 @@ body::before {
   text-transform: uppercase;
 }
 
+/* About page styles */
+.about-page .about-title {
+  text-align: center;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 8px;
+  margin-bottom: 18px;
+}
+
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 28px;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.about-text {
+  color: rgba(232,236,239,0.9);
+  font-size: 1.02rem;
+  line-height: 1.8;
+}
+
+.about-text p {
+  margin: 0 0 14px;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+  display: block;
+}
+
 .footer-bar {
   text-align: center;
   color: rgba(232,236,239,0.6);
@@ -384,6 +423,11 @@ body::before {
 @media (max-width: 900px) {
   .project-grid {
     grid-template-columns: 1fr;
+  }
+
+  .about-container {
+    grid-template-columns: 1fr;
+    padding: 0 8px;
   }
 
   .xmb-row {
