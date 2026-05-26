@@ -14,6 +14,33 @@ const yearProjects = {
   ]
 };
 
+function createSparkles() {
+  const container = document.getElementById('sparkle-background');
+  if (!container) return;
+
+  const sparkleCount = 40;
+  for (let i = 0; i < sparkleCount; i += 1) {
+    const sparkle = document.createElement('div');
+    const size = Math.floor(Math.random() * 8) + 4;
+    const drift = Math.floor(Math.random() * 120) - 60;
+    const duration = Math.random() * 12 + 14;
+    const delay = Math.random() * -24;
+    const startLeft = Math.random() * 100;
+    const scale = (Math.random() * 0.7) + 0.35;
+
+    sparkle.className = 'sparkle';
+    sparkle.style.setProperty('--sparkle-size', `${size}px`);
+    sparkle.style.setProperty('--sparkle-left', `${startLeft}%`);
+    sparkle.style.setProperty('--sparkle-drift-x', `${drift}px`);
+    sparkle.style.setProperty('--sparkle-duration', `${duration}s`);
+    sparkle.style.setProperty('--sparkle-twinkle', `${Math.random() * 2 + 1.6}s`);
+    sparkle.style.setProperty('--sparkle-scale', `${scale}`);
+    sparkle.style.setProperty('animation-delay', `${delay}s`);
+
+    container.appendChild(sparkle);
+  }
+}
+
 function clearSelection() {
   selectedIndex = -1;
   items.forEach(item => {
@@ -141,6 +168,7 @@ window.addEventListener('keydown', event => {
   }
 });
 
+createSparkles();
 loadProjectsData();
 renderCountdown();
 clearSelection();
