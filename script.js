@@ -172,3 +172,18 @@ createSparkles();
 loadProjectsData();
 renderCountdown();
 clearSelection();
+
+function updateDateTime() {
+  const el = document.getElementById('status-datetime');
+  if (!el) return;
+  const now = new Date();
+
+  // Format like "8/31 10:02 PM" similar to the PS3 UI
+  const datePart = now.toLocaleDateString(undefined, { month: 'numeric', day: 'numeric' });
+  const timePart = now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+
+  el.textContent = `${datePart} ${timePart}`;
+}
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
