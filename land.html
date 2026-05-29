@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christopher Demetri's Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .landing-container {
+            text-align: center;
+            position: relative;
+            max-width: 90%;
+        }
+
+        .text-wrapper {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-text {
+            font-size: 5vw;
+            font-weight: 900;
+            color: white;
+            letter-spacing: 2px;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideInFromLeft 6s ease-in-out forwards;
+            background: linear-gradient(90deg, #ffffff, #ffffff);
+            background-size: 200% 100%;
+            animation: slideInFromLeft 6s ease-in-out forwards, shimmer 6s ease-in-out forwards;
+        }
+
+        .portfolio-text {
+            font-size: 3vw;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 1px;
+            margin-top: 20px;
+            text-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            animation: slideInFromLeft 6s ease-in-out forwards;
+            animation-delay: 0.5s;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+            background-size: 200% 100%;
+        }
+
+        @keyframes slideInFromLeft {
+            0% {
+                opacity: 0;
+                clip-path: inset(0 100% 0 0);
+                transform: translateX(-100px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                clip-path: inset(0 0 0 0);
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Optional: Add a subtle floating effect */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .landing-container {
+            animation: float 4s ease-in-out 6s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-container">
+        <div class="text-wrapper">
+            <div class="main-text">Christopher Demetri's</div>
+            <div class="portfolio-text">Portfolio</div>
+        </div>
+    </div>
+</body>
+</html>
