@@ -13,7 +13,7 @@
     },
     {
         "name": "Artist Gallery",
-        "img": "website-imgs/artist-gallery.png",
+        "img": "imgs/artist.png",
         "description": "This website is a gallery featuring some favorite music artists, including images, information, and styled layouts dedicated to each artist.",
         "link": "https://chrisdemee.github.io/artists/"
     },
