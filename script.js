@@ -187,3 +187,21 @@ function updateDateTime() {
 
 updateDateTime();
 setInterval(updateDateTime, 1000);
+
+// Fade-in for about page content on load
+document.addEventListener('DOMContentLoaded', () => {
+  const about = document.querySelector('.about-container');
+  if (!about) return;
+
+  // Use requestAnimationFrame to ensure styles have been applied
+  requestAnimationFrame(() => {
+    // small timeout to make the transition noticeable on very fast loads
+    setTimeout(() => {
+      about.classList.add('fade-in');
+
+      // also fade in skills panel if present
+      const skills = document.querySelector('.skills-panel');
+      if (skills) setTimeout(() => skills.classList.add('fade-in'), 140);
+    }, 60);
+  });
+});

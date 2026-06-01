@@ -293,22 +293,28 @@ body::before {
 }
 
 .project-card {
-  display: none;
+  /* Hidden by collapsing height and reducing padding so layout doesn't jump */
+  display: block;
+  max-height: 0;
+  overflow: hidden;
   background: rgba(8,10,16,0.78);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 22px;
-  padding: 28px 24px;
+  padding: 0 24px;
   width: 100%;
-  transition: opacity 0.24s ease, transform 0.24s ease, border-color 0.24s ease;
+  transition: max-height 340ms ease, opacity 260ms ease, transform 260ms cubic-bezier(.2,.9,.3,1), padding 260ms ease, border-color 260ms ease;
   opacity: 0;
   transform: translateY(10px);
+  pointer-events: none;
 }
 
 .project-card.active {
-  display: block;
+  max-height: 1200px; /* large enough to fit content */
+  padding: 28px 24px;
   opacity: 1;
   transform: translateY(0);
   border-color: rgba(114,163,255,0.38);
+  pointer-events: auto;
 }
 
 .project-card h2 {
@@ -397,6 +403,99 @@ body::before {
   color: #ff4d4d;
   font-weight: 700;
 }
+
+/* About page fade-in */
+.about-container .about-text,
+.about-container .about-image {
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity 420ms cubic-bezier(.2,.9,.3,1), transform 420ms cubic-bezier(.2,.9,.3,1);
+}
+
+.about-container.fade-in .about-text {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 80ms;
+}
+
+.about-container.fade-in .about-image {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 180ms;
+}
+
+/* Skills panel (PlayStation-like boxed UI) */
+.skills-panel {
+  margin: 22px auto 0;
+  max-width: 920px;
+  padding: 6px 4px 12px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 420ms cubic-bezier(.2,.9,.3,1), transform 420ms cubic-bezier(.2,.9,.3,1);
+}
+
+.skills-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(232,236,239,0.92);
+  margin: 0 0 14px;
+  text-align: center;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.skill-box {
+  background: rgba(12,14,21,0.78);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 28px rgba(2,6,12,0.45);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, opacity 260ms ease, transform 260ms ease;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.skill-box h4 {
+  margin: 0 0 6px 0;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.skill-box p {
+  margin: 0;
+  color: rgba(232,236,239,0.86);
+  font-size: 0.96rem;
+  line-height: 1.35;
+}
+
+.skill-box:hover,
+.skill-box:focus-within {
+  transform: translateY(-6px);
+  border-color: rgba(109,180,255,0.48);
+  box-shadow: 0 18px 48px rgba(76,170,255,0.08);
+}
+
+/* Fade-in when triggered */
+.skills-panel.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skills-panel.fade-in .skill-box {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skills-panel.fade-in .skills-grid .skill-box:nth-child(1) { transition-delay: 220ms; }
+.skills-panel.fade-in .skills-grid .skill-box:nth-child(2) { transition-delay: 320ms; }
+.skills-panel.fade-in .skills-grid .skill-box:nth-child(3) { transition-delay: 420ms; }
 
 .countdown-clock {
   display: grid;

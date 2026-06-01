@@ -9,6 +9,18 @@
 <body>
   <div class="background-layer"></div>
   <div id="sparkle-background" aria-hidden="true"></div>
+  <!-- Redirect root to land.html so the landing screen is the first thing visitors see -->
+  <script>
+    (function() {
+      const params = new URLSearchParams(location.search);
+      const skip = params.has('skipLand');
+      const ref = document.referrer || '';
+      const onRoot = location.pathname === '/' || /index\.html?$/.test(location.pathname);
+      if (onRoot && !skip && !/land\.html/.test(ref)) {
+        location.replace('land.html');
+      }
+    })();
+  </script>
   <header class="topbar">
     <div class="profile-block">
       <div class="profile-icon">CD</div>

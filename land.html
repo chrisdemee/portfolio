@@ -35,28 +35,27 @@
         }
 
         .main-text {
-            font-size: 5vw;
+            font-size: clamp(32px, 6.5vw, 72px);
             font-weight: 900;
             color: white;
             letter-spacing: 2px;
-            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: slideInFromLeft 6s ease-in-out forwards;
-            background: linear-gradient(90deg, #ffffff, #ffffff);
-            background-size: 200% 100%;
-            animation: slideInFromLeft 6s ease-in-out forwards, shimmer 6s ease-in-out forwards;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 600ms cubic-bezier(.2,.9,.3,1), transform 600ms cubic-bezier(.2,.9,.3,1);
         }
 
         .portfolio-text {
-            font-size: 3vw;
+            font-size: clamp(20px, 3.5vw, 36px);
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.95);
             letter-spacing: 1px;
-            margin-top: 20px;
-            text-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            animation: slideInFromLeft 6s ease-in-out forwards;
-            animation-delay: 0.5s;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-            background-size: 200% 100%;
+            margin-top: 14px;
+            text-shadow: 0 8px 25px rgba(0, 0, 0, 0.28);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 640ms cubic-bezier(.2,.9,.3,1), transform 640ms cubic-bezier(.2,.9,.3,1);
+            transition-delay: 80ms;
         }
 
         @keyframes slideInFromLeft {
@@ -97,21 +96,135 @@
         .landing-container {
             animation: float 4s ease-in-out 6s infinite;
         }
+
+        /* sparkle background (one-shot) */
+        #sparkle-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, rgba(8,14,30,0.55) 0%, rgba(6,8,14,0.85) 60%);
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff 0%, #9fd6ff 40%, rgba(109,180,255,0.12) 60%);
+            box-shadow: 0 6px 18px rgba(76,170,255,0.18), 0 0 8px rgba(255,255,255,0.12) inset;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.6);
+        }
+
+        @keyframes sparkle-in {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); filter: blur(6px); }
+            60% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0px); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes sparkle-explode {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.6); filter: blur(2px); }
+        }
+
+        /* show state */
+        .landing-container.show .main-text,
+        .landing-container.show .portfolio-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* top-right PS-like logo */
+        .ps-logo {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 62px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            z-index: 40;
+            pointer-events: none;
+            opacity: 0.95;
+        }
+
+        .ps-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #f7fbff;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            font-size: 0.85rem;
+        }
+
+        /* no fade-out: redirect will occur after 5s */
     </style>
 </head>
 <body>
-  <iframe 
-    id="youtube-bg"
-    src="https://www.youtube.com/embed/0e-4QrEIsRI?autoplay=1&mute=1&controls=0&modestbranding=1&fs=0"
-    frameborder="0"
-    allow="autoplay *"
-    loading="lazy">
-  </iframe>
+    <div id="sparkle-bg" aria-hidden="true"></div>
     <div class="landing-container">
         <div class="text-wrapper">
             <div class="main-text">Christopher Demetri's</div>
             <div class="portfolio-text">Portfolio</div>
         </div>
     </div>
+        <!-- PlayStation-like logo top-right -->
+        <div class="ps-logo" aria-hidden="true">
+            <div class="ps-badge">PS</div>
+        </div>
+
+        <script>
+            // Start sparkle animation once and redirect after 5s
+            document.addEventListener('DOMContentLoaded', () => {
+                const container = document.querySelector('.landing-container');
+                const sparkRoot = document.getElementById('sparkle-bg');
+                if (!container || !sparkRoot) return;
+
+                // show text (fade/slide in)
+                requestAnimationFrame(() => container.classList.add('show'));
+
+                // create a burst of sparkles that animate once
+                const sparkCount = 28;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+
+                for (let i = 0; i < sparkCount; i++) {
+                    const s = document.createElement('div');
+                    s.className = 'sparkle';
+
+                    // random starting offset near center
+                    const startX = centerX + (Math.random() - 0.5) * 140;
+                    const startY = centerY + (Math.random() - 0.5) * 60;
+                    s.style.left = startX + 'px';
+                    s.style.top = startY + 'px';
+
+                    // explosion vector
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 160 + Math.random() * 300;
+                    const dx = Math.cos(angle) * distance + (Math.random() - 0.5) * 40;
+                    const dy = Math.sin(angle) * distance + (Math.random() - 0.5) * 40;
+                    s.style.setProperty('--dx', dx + 'px');
+                    s.style.setProperty('--dy', dy + 'px');
+
+                    const inDelay = Math.random() * 600; // up to 0.6s
+                    const inDur = 560 + Math.random() * 480; // ~0.56-1.04s
+                    const explodeDelay = inDelay + inDur + 500 + Math.random() * 1200;
+                    const explodeDur = 640 + Math.random() * 560;
+
+                    s.style.animation = `sparkle-in ${inDur}ms ease ${inDelay}ms forwards, sparkle-explode ${explodeDur}ms ease ${explodeDelay}ms forwards`;
+                    sparkRoot.appendChild(s);
+                }
+
+                // redirect after 5 seconds, no loop
+                setTimeout(() => { window.location.href = 'index.html'; }, 5000);
+            });
+        </script>
 </body>
 </html>
