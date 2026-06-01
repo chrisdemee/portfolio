@@ -1,13 +1,13 @@
 [
     {
         "name": "Look Ma I Made It",
-        "img": "website-imgs/look-ma-i-made-it.png",
+        "img": "imgs/lookma.png",
         "description": "This website is based on Babe Ruth and showcases information about his life, baseball career, achievements, and impact on the sport.",
         "link": "https://chrisdemee.github.io/LookMaIMadeIt/"
     },
     {
         "name": "Underground Rap Hangman",
-        "img": "website-imgs/underground-rap-hangman.png",
+        "img": "imgs/hangman.png",
         "description": "This website is a hangman game with an underground rap theme, featuring artists and music references while testing the player's guessing skills.",
         "link": "https://chrisdemee.github.io/hangman/"
     },
@@ -19,13 +19,13 @@
     },
     {
         "name": "NJIT Movie Gallery",
-        "img": "website-imgs/njit-movie-gallery.png",
+        "img": "imgs/movies.png",
         "description": "This website is a movie gallery that showcases popular movies with posters, visuals, and organized layouts for browsing different films.",
         "link": "https://chrisdemee.github.io/NJITMovieGallery/"
     },
         {
         "name": "Rutgers recruitment site",
-        "img": "blob:chrome-untrusted://media-app/83bbce4e-511d-400b-9b5a-549483854761",
+        "img": "imgs/rutgers.png",
         "description": "This website is a college recruitment site for Rutgers University.",
         "link": "https://chrisdemee.github.io/collegerecruit/"
     }

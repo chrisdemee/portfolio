@@ -91,7 +91,7 @@ function renderCountdown() {
 
   const targetDate = new Date('2026-12-01T00:00:00Z');
   container.innerHTML = `
-    <p class="countdown-label">Grand Theft Auto VI Release Countdown</p>
+    <p class="countdown-label">Sophomore projects to be released to public when GTA 6 releases</p>
     <div class="countdown-clock">
       <div class="countdown-block"><span class="countdown-value" data-unit="days">0</span><small>Days</small></div>
       <div class="countdown-block"><span class="countdown-value" data-unit="hours">0</span><small>Hours</small></div>
