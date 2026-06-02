@@ -5,9 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Me - Christopher Demetri</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* sparkle background (one-shot) */
+    #sparkle-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+      background: radial-gradient(ellipse at center, rgba(8,14,30,0.55) 0%, rgba(6,8,14,0.85) 60%);
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff 0%, #9fd6ff 40%, rgba(109,180,255,0.12) 60%);
+      box-shadow: 0 6px 18px rgba(76,170,255,0.18), 0 0 8px rgba(255,255,255,0.12) inset;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.6);
+    }
+
+    @keyframes sparkle-in {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2); filter: blur(6px); }
+      60% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0px); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes sparkle-explode {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.6); filter: blur(2px); }
+    }
+  </style>
 </head>
 <body>
+  <div id="sparkle-bg" aria-hidden="true"></div>
+  <audio id="bg-audio" src="audios/playstation.mp4" loop autoplay playsinline></audio>
   <div class="background-layer"></div>
+  <div id="sparkle-background" aria-hidden="true"></div>
   <header class="topbar">
     <div class="profile-block">
       <div class="profile-icon">CD</div>
@@ -17,7 +53,7 @@
       </div>
     </div>
     <div class="topbar-right">
-      <a class="topbar-button" href="index.html">Back to Projects</a>
+      <a class="topbar-button" href="portfolio.html">Back to Projects</a>
     </div>
   </header>
 
@@ -61,5 +97,118 @@
   <footer class="footer-bar">Back to projects using the top link.</footer>
 
   <script src="script.js"></script>
+  <script>
+    (function(){
+      const audio = document.getElementById('bg-audio');
+      if(!audio) return;
+      function showPlayButton(){
+        let btn = document.getElementById('audio-play-btn');
+        if(!btn){
+          btn = document.createElement('button');
+          btn.id = 'audio-play-btn';
+          btn.textContent = 'Play Audio';
+          Object.assign(btn.style,{
+            position: 'fixed',
+            right: '12px',
+            bottom: '12px',
+            zIndex: 9999,
+            padding: '8px 12px',
+            borderRadius: '6px',
+            background: '#111',
+            color: '#fff',
+            border: 'none',
+            opacity: '0.9',
+            cursor: 'pointer'
+          });
+          document.body.appendChild(btn);
+          btn.addEventListener('click', ()=>{
+            audio.play().catch(()=>{});
+            btn.style.display = 'none';
+          });
+        }
+        btn.style.display = 'block';
+      }
+
+      audio.play().catch((err)=>{
+        console.warn('Autoplay blocked:', err);
+        showPlayButton();
+        const interact = ()=>{
+          audio.play().catch(()=>{});
+          document.removeEventListener('click', interact);
+          document.removeEventListener('touchstart', interact);
+        };
+        document.addEventListener('click', interact, {once:true});
+        document.addEventListener('touchstart', interact, {once:true});
+      });
+    })();
+  </script>
+  <script>
+    // mute/unmute button (bottom-left) in PlayStation-like style
+    (function(){
+      const audio = document.getElementById('bg-audio');
+      if(!audio) return;
+      let btn = document.getElementById('mute-btn');
+      if(!btn){
+        btn = document.createElement('button');
+        btn.id = 'mute-btn';
+        btn.setAttribute('aria-pressed', String(audio.muted));
+        btn.title = 'Mute / Unmute';
+        btn.innerHTML = 'PS';
+        Object.assign(btn.style, {
+          position: 'fixed',
+          left: '12px',
+          bottom: '12px',
+          zIndex: 9999,
+          padding: '8px 10px',
+          borderRadius: '10px',
+          background: 'rgba(0,0,0,0.7)',
+          color: '#f7fbff',
+          border: '1px solid rgba(255,255,255,0.12)',
+          fontWeight: '800',
+          letterSpacing: '0.12em',
+          cursor: 'pointer'
+        });
+        document.body.appendChild(btn);
+      }
+      function update(){
+        btn.innerText = audio.muted ? 'Unmute' : 'Mute';
+        btn.style.opacity = audio.muted ? '0.8' : '0.95';
+        btn.setAttribute('aria-pressed', String(audio.muted));
+      }
+      btn.addEventListener('click', ()=>{
+        audio.muted = !audio.muted;
+        update();
+      });
+      update();
+    })();
+  </script>
+
+  <script>
+    // sparkle burst (one-shot) for About page
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const sparkRoot = document.getElementById('sparkle-bg');
+      if(!sparkRoot) return;
+      const sparkCount = 28;
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      for(let i=0;i<sparkCount;i++){
+        const s = document.createElement('div'); s.className='sparkle';
+        const startX = centerX + (Math.random()-0.5)*140;
+        const startY = centerY + (Math.random()-0.5)*60;
+        s.style.left = startX+'px'; s.style.top = startY+'px';
+        const angle = Math.random()*Math.PI*2;
+        const distance = 160 + Math.random()*300;
+        const dx = Math.cos(angle)*distance + (Math.random()-0.5)*40;
+        const dy = Math.sin(angle)*distance + (Math.random()-0.5)*40 + 40;
+        s.style.setProperty('--dx', dx+'px'); s.style.setProperty('--dy', dy+'px');
+        const inDelay = Math.random()*600;
+        const inDur = 560 + Math.random()*480;
+        const explodeDelay = inDelay + inDur + 500 + Math.random()*1200;
+        const explodeDur = 640 + Math.random()*560;
+        s.style.animation = `sparkle-in ${inDur}ms ease ${inDelay}ms forwards, sparkle-explode ${explodeDur}ms ease ${explodeDelay}ms forwards`;
+        sparkRoot.appendChild(s);
+      }
+    });
+  </script>
 </body>
 </html>
